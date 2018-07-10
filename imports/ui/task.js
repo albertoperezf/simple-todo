@@ -4,7 +4,6 @@ import './task.html';
 
 Template.task.helpers({
     isOwner() {
-        console.log(this) // TODO: Remove console.log
         return this.owner === Meteor.userId();
     },
 });
@@ -15,7 +14,8 @@ Template.task.events({
         Meteor.call('tasks.setChecked', this._id, !this.checked);
     },
     'click .delete'() {
-        Meteor.call('tasks.remove', this._id);
+        const { _str: id } = this._id
+        Meteor.call('tasks.remove', id);
     },
     'click .toggle-private'() {
         Meteor.call('tasks.setPrivate', this._id, !this.private);
